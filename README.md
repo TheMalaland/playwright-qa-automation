@@ -1,6 +1,5 @@
 # playwright-qa-automation
 
-Playwright QA Automation
 This project demonstrates the use of Playwright as a QA automation tool to test a real website. It includes end-to-end (E2E) tests that validate functionality, content, and navigation of the webpage.
 
 Objective
