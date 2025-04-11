@@ -3,6 +3,10 @@ import HomePage from '../../../page-objects/pages/home';
 import MainScreen  from '../../../page-objects/pages/mainscreen';
 
 test.describe('Homepage Tests', () => {
+    
+    //open the 
+    
+
     test('should display the homepage correctly', async ({ page }) => {
         const homePage = new HomePage(page);
          await homePage.navigate();
