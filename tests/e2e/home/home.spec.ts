@@ -48,6 +48,35 @@ test.describe('Homepage Tests', () => {
 
         expect(await mainscreen.isgithubIconVisible()).toBeTruthy();
         await mainscreen.clickGithubIcon();
+
     });
+
+    test('the social media redirections should be correct (as described)', async ({ page }) => {
+        const mainscreen = new MainScreen(page);
+        await mainscreen.navigate();
+
+        // Verificar que los enlaces de las redes sociales son correctos
+        await mainscreen.validateGithubURL();
+        await mainscreen.validateLinkedinURL();
+        await mainscreen.validateInstagramURL();
+    })
+
+    test('the moreaboutMe button should be visible and clickable', async ({ page }) => {
+        const mainscreen = new MainScreen(page);
+        await mainscreen.navigate();
+
+        // Verificar que el botón "More about me" es visible y se puede hacer clic
+        expect(await mainscreen.moreAboutMeIsVisible()).toBeTruthy();
+        await mainscreen.clickMoreaboutMebutton();
+    })
+
+    test('the moreaboutMe button should redirect correctly', async ({ page }) => {
+        const mainscreen = new MainScreen(page);
+        await mainscreen.navigate();
+
+        // Verificar que el botón "More about me" redirige correctamente
+        await mainscreen.validateMoreAboutMeNavigation();
+    })
+
 
 });

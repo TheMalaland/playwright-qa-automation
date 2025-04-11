@@ -28,7 +28,8 @@ class MainScreen {
         this.githubURL = this.page.locator('a[aria-label="My github"]'); // Selector del enlace de GitHub
         this.linkedinURL = this.page.locator('a[aria-label="My linkedin"]'); // Selector del enlace de LinkedIn
         this.instagramURL = this.page.locator('a[aria-label="My instagram"]'); // Selector del enlace de Instagram
-   
+
+        this.moreaboutme = this.page.locator('a[aria-label="Learn more about me"]'); // Selector del enlace "More about me"
       }
 
     async navigate(): Promise<void> {
@@ -83,6 +84,58 @@ class MainScreen {
         await this.instagram_icon.click();
       }
 
+      async validateGithubURL(): Promise<void> {
+       const [newPage] = await Promise.all([
+        this.page.waitForEvent('popup'), // Espera a que se abra una nueva página
+        this.github_icon.click(), // Hace clic en el icono de GitHub
+       ]);
+       const url = await newPage.url(); // Obtiene la URL de la nueva página        
+       if(!url.includes('https://github.com/TheMalaland')) {
+        throw new Error('La URL de GitHub no es correcta');
+       }
+      }
+
+      async validateLinkedinURL(): Promise<void> {
+        const [newPage] = await Promise.all([
+         this.page.waitForEvent('popup'), // Espera a que se abra una nueva página  
+          this.linkedin_icon.click(), // Hace clic en el icono de LinkedIn
+        ]);
+        const url = await newPage.url(); // Obtiene la URL de la nueva página 
+        if(!url.includes('https://www.linkedin.com/in/rodrigo-emmanuel-chi-ozalde-210347123/')){
+        throw new Error('La URL de LinkedIn no es correcta');
+        }
+      }
+    
+      async validateInstagramURL(): Promise<void> {
+        const [newPage] = await Promise.all([
+         this.page.waitForEvent('popup'), // Espera a que se abra una nueva página  
+          this.instagram_icon.click(), // Hace clic en el icono de Instagram
+        ]);
+        const url = await newPage.url(); // Obtiene la URL de la nueva página 
+        if(!url.includes('https://www.instagram.com/themalaland/')){
+        throw new Error('La URL de Instagram no es correcta');
+        }
+      }
+
+      async moreAboutMeIsVisible(): Promise<Boolean> {
+        return await this.moreaboutme.isVisible();
+      }
+
+      async clickMoreaboutMebutton(): Promise<void> {
+        await this.moreaboutme.click(); // Hace clic en el enlace "More about me"
+      }
+
+      async validateMoreAboutMeNavigation(): Promise<void> {
+        await this.moreaboutme.click(); // Hace clic en el enlace "More about me"
+        await this.page.waitForFunction(() => window.location.hash === '#aboutme');
+
+
+        // Verifica que el fragmento de la URL sea correcto
+        const urlFragment = await this.page.evaluate(() => window.location.hash);
+        if (urlFragment !== '#aboutme') {
+          throw new Error(`Navigation failed. Expected '#aboutme', but got '${urlFragment}'`);
+        }
+      }
 
 }
 export default MainScreen;
