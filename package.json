@@ -1,0 +1,26 @@
+{
+  "name": "liverpool-qa-automation",
+  "version": "1.0.0",
+  "description": "QA Automation for Liverpool website using Playwright",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test --config=config/playwright.config.ts",
+    "test:chrome": "playwright test --project='Google Chrome' --config=config/playwright.config.ts",
+    "test:firefox": "playwright test --project='Firefox' --config=config/playwright.config.ts",
+    "test:edge": "playwright test --project='Microsoft Edge' --config=config/playwright.config.ts",
+    "report": "playwright show-report",
+    "debug": "playwright test --debug --config=config/playwright.config.ts"
+  },
+  "keywords": [
+    "playwright",
+    "automation",
+    "testing",
+    "qa",
+    "liverpool"
+  ],
+  "author": "TheMalaland",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.38.0"
+  }
+}
